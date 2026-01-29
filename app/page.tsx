@@ -19,7 +19,6 @@ export default function Home() {
   const [clientId, setClientId] = useState<string | null>(null);
   const [makePublic, setMakePublic] = useState(false);
   const [licenseKey, setLicenseKey] = useState("");
-  const [verifying, setVerifying] = useState(false);
 
 
 
@@ -260,22 +259,29 @@ It cannot be edited or deleted.
   </p>
 
   <input
-    type="text"
-    placeholder="Enter your license key"
-    style={{
-      width: "100%",
-      padding: "10px",
-      borderRadius: "6px",
-      border: "1px solid #ccc",
-      marginBottom: "8px",
-      fontSize: "14px",
-    }}
-  />
+  type="text"
+  value={licenseKey}
+  onChange={(e) => setLicenseKey(e.target.value)}
+  placeholder="Enter your license key"
+  style={{
+    width: "100%",
+    padding: "10px",
+    borderRadius: "6px",
+    border: "1px solid #ccc",
+    marginBottom: "8px",
+    fontSize: "14px",
+  }}
+/>
 
-  <button
-    onClick={() => {
-      setStatus("License verification coming next…");
-    }}
+
+  onClick={() => {
+  if (!licenseKey.trim()) {
+    setStatus("Please enter a license key.");
+    return;
+  }
+  setStatus("License verification coming next…");
+}}
+
     style={{
       padding: "10px 18px",
       backgroundColor: "#333",
