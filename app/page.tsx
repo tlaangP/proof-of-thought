@@ -236,24 +236,51 @@ export default function Home() {
             />
 
             <button
-              onClick={() => {
-                if (!licenseKey.trim()) {
-                  setStatus("Please enter a license key.");
-                  return;
-                }
-                setStatus("License verification coming next…");
-              }}
-              style={{
-                padding: "10px 18px",
-                backgroundColor: "#333",
-                color: "white",
-                borderRadius: "6px",
-                cursor: "pointer",
-                fontSize: "14px",
-              }}
-            >
-              Redeem license key
-            </button>
+  onClick={async () => {
+    if (!licenseKey.trim()) {
+      setStatus("Please enter a license key.");
+      return;
+    }
+    setVerifying(true);
+    setStatus("Verifying license key…");
+
+    try {
+      const res = await fetch("/api/verify-license", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ licenseKey }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.valid) {
+        setIsUnlocked(true);
+        localStorage.setItem("proof_unlocked", "true");
+        setStatus("License valid! Unlimited thoughts unlocked.");
+      } else {
+        setStatus("Invalid license key. Please try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus("Error verifying license key. Try again later.");
+    } finally {
+      setVerifying(false);
+    }
+  }}
+  style={{
+    padding: "10px 18px",
+    backgroundColor: "#333",
+    color: "white",
+    borderRadius: "6px",
+    cursor: "pointer",
+    fontSize: "14px",
+  }}
+>
+  {verifying ? "Verifying…" : "Redeem license key"}
+</button>
+
           </div>
         </div>
       )}
