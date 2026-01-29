@@ -138,10 +138,11 @@ loadThoughts(); // refresh list
       "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen",
   }}
 >
-
-      <h1 style={{ fontSize: "32px", fontWeight: 600 }}>
+<h1 style={{ fontSize: "32px", fontWeight: 600 }}>
   Proof of Thought
 </h1>
+
+
 
 
 <p style={{ marginTop: "12px", fontSize: "16px" }}>
@@ -237,9 +238,8 @@ It cannot be edited or deleted.
 
     <button
       onClick={() => {
-        localStorage.setItem("proof_unlocked", "true");
-        setIsUnlocked(true);
-        setStatus("Unlocked. You can now seal unlimited thoughts.");
+        window.location.href =
+          "https://ppcreators.gumroad.com/l/dhxtwg";
       }}
       style={{
         padding: "10px 18px",
@@ -247,12 +247,14 @@ It cannot be edited or deleted.
         color: "white",
         borderRadius: "6px",
         cursor: "pointer",
+        fontWeight: 500,
       }}
     >
-      Unlock Unlimited — $5
+      Unlock lifetime access – $7
     </button>
   </div>
 )}
+
 
 
 {newThoughtId && (
