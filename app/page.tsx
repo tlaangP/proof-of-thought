@@ -18,6 +18,8 @@ export default function Home() {
   const [newThoughtId, setNewThoughtId] = useState<string | null>(null);
   const [clientId, setClientId] = useState<string | null>(null);
   const [makePublic, setMakePublic] = useState(false);
+  const [licenseKey, setLicenseKey] = useState("");
+  const [verifying, setVerifying] = useState(false);
 
 
 
@@ -252,6 +254,41 @@ It cannot be edited or deleted.
     >
       Unlock lifetime access – $7
     </button>
+    <div style={{ marginTop: "15px" }}>
+  <p style={{ fontSize: "13px", color: "#555", marginBottom: "6px" }}>
+    Already purchased? Redeem your license key:
+  </p>
+
+  <input
+    type="text"
+    placeholder="Enter your license key"
+    style={{
+      width: "100%",
+      padding: "10px",
+      borderRadius: "6px",
+      border: "1px solid #ccc",
+      marginBottom: "8px",
+      fontSize: "14px",
+    }}
+  />
+
+  <button
+    onClick={() => {
+      setStatus("License verification coming next…");
+    }}
+    style={{
+      padding: "10px 18px",
+      backgroundColor: "#333",
+      color: "white",
+      borderRadius: "6px",
+      cursor: "pointer",
+      fontSize: "14px",
+    }}
+  >
+    Redeem license key
+  </button>
+</div>
+
   </div>
 )}
 
