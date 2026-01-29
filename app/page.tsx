@@ -274,25 +274,26 @@ It cannot be edited or deleted.
 />
 
 
+  <button
   onClick={() => {
-  if (!licenseKey.trim()) {
-    setStatus("Please enter a license key.");
-    return;
-  }
-  setStatus("License verification coming next…");
-}}
+    if (!licenseKey.trim()) {
+      setStatus("Please enter a license key.");
+      return;
+    }
+    setStatus("License verification coming next…");
+  }}
+  style={{
+    padding: "10px 18px",
+    backgroundColor: "#333",
+    color: "white",
+    borderRadius: "6px",
+    cursor: "pointer",
+    fontSize: "14px"
+  }}
+>
+  Redeem license key
+</button>
 
-    style={{
-      padding: "10px 18px",
-      backgroundColor: "#333",
-      color: "white",
-      borderRadius: "6px",
-      cursor: "pointer",
-      fontSize: "14px",
-    }}
-  >
-    Redeem license key
-  </button>
 </div>
 
   </div>
