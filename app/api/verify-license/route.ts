@@ -14,7 +14,7 @@ export async function POST(req: Request) {
       Authorization: `Bearer ${process.env.GUMROAD_ACCESS_TOKEN}`,
     },
     body: JSON.stringify({
-      product_id: "dhxtwg",
+      product_id: "geB67dAseGRaqslhf1BrXQ==",
       license_key: licenseKey,
     }),
   });
