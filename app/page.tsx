@@ -119,7 +119,7 @@ export default function Home() {
         fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen",
       }}
     >
-      <h1 style={{ fontSize: "32px", fontWeight: 600 }}>Proof of Thought</h1>
+      <h1 style={{ fontSize: "32px", fontWeight: 600 }}>Thought Seal</h1>
 
       <p style={{ marginTop: "12px", fontSize: "16px" }}>
         Make a declaration / prediction / commitment.
@@ -348,7 +348,7 @@ export default function Home() {
       </ul>
 
       <p style={{ marginTop: "60px", fontSize: "12px", color: "#999", textAlign: "center" }}>
-        Proof of Thought — immutable declarations / predictions / commitments
+        Thought Seal — immutable declarations / predictions / commitments
       </p>
     </main>
   );
