@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -22,14 +23,14 @@ export default function Home() {
   const [verifying, setVerifying] = useState(false);
 
   useEffect(() => {
-    let id = localStorage.getItem("thought_seal_client_id");
+    let id = localStorage.getItem("pot_client_id");
     if (!id) {
       id = crypto.randomUUID();
-      localStorage.setItem("thought_seal_client_id", id);
+      localStorage.setItem("pot_client_id", id);
     }
     setClientId(id);
 
-    const unlocked = localStorage.getItem("thought_seal_unlocked");
+    const unlocked = localStorage.getItem("proof_unlocked");
     if (unlocked === "true") {
       setIsUnlocked(true);
     }
@@ -118,7 +119,7 @@ export default function Home() {
         fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen",
       }}
     >
-      <h1 style={{ fontSize: "32px", fontWeight: 600 }}>Thought Seal</h1>
+      <h1 style={{ fontSize: "32px", fontWeight: 600 }}>Proof of Thought</h1>
 
       <p style={{ marginTop: "12px", fontSize: "16px" }}>
         Make a declaration / prediction / commitment.
@@ -148,9 +149,7 @@ export default function Home() {
         }}
       />
 
-      <p style={{ fontSize: "12px", color: "#777", marginTop: "4px" }}>
-        {thought.length}/800 characters
-      </p>
+      <p style={{ fontSize: "12px", color: "#777", marginTop: "4px" }}>{thought.length}/800 characters</p>
 
       {isUnlocked && (
         <label
@@ -163,11 +162,7 @@ export default function Home() {
             color: "#333",
           }}
         >
-          <input
-            type="checkbox"
-            checked={makePublic}
-            onChange={(e) => setMakePublic(e.target.checked)}
-          />
+          <input type="checkbox" checked={makePublic} onChange={(e) => setMakePublic(e.target.checked)} />
           Make this thought public (shareable)
         </label>
       )}
@@ -220,6 +215,7 @@ export default function Home() {
             Unlock lifetime access – $7
           </button>
 
+          {/* ===== Redeem License Key UI ===== */}
           <div style={{ marginTop: "15px" }}>
             <p style={{ fontSize: "13px", color: "#555", marginBottom: "6px" }}>
               Already purchased? Redeem your license key:
@@ -241,60 +237,64 @@ export default function Home() {
             />
 
             <button
-              onClick={async () => {
-                if (!licenseKey.trim()) {
-                  setStatus("Please enter a license key.");
-                  return;
-                }
-                setVerifying(true);
-                setStatus("Verifying license key…");
+  onClick={async () => {
+    if (!licenseKey.trim()) {
+      setStatus("Please enter a license key.");
+      return;
+    }
+    setVerifying(true);
+    setStatus("Verifying license key…");
 
-                try {
-                  const res = await fetch("/api/verify-license", {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ licenseKey }),
-                  });
+    try {
+      const res = await fetch("/api/verify-license", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ licenseKey }),
+      });
 
-                  const data = await res.json();
+      const data = await res.json();
 
-                  if (res.ok && data.valid) {
-                    setIsUnlocked(true);
-                    localStorage.setItem("thought_seal_unlocked", "true");
-                    setStatus("License valid! Unlimited thoughts unlocked.");
-                  } else {
-                    setStatus("Invalid license key. Please try again.");
-                  }
-                } catch (err) {
-                  setStatus("Error verifying license key. Try again later.");
-                } finally {
-                  setVerifying(false);
-                }
-              }}
-              style={{
-                padding: "10px 18px",
-                backgroundColor: "#333",
-                color: "white",
-                borderRadius: "6px",
-                cursor: "pointer",
-                fontSize: "14px",
-              }}
-            >
-              {verifying ? "Verifying…" : "Redeem license key"}
-            </button>
+      if (res.ok && data.valid) {
+        setIsUnlocked(true);
+        localStorage.setItem("proof_unlocked", "true");
+        setStatus("License valid! Unlimited thoughts unlocked.");
+      } else {
+        setStatus("Invalid license key. Please try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus("Error verifying license key. Try again later.");
+    } finally {
+      setVerifying(false);
+    }
+  }}
+  style={{
+    padding: "10px 18px",
+    backgroundColor: "#333",
+    color: "white",
+    borderRadius: "6px",
+    cursor: "pointer",
+    fontSize: "14px",
+  }}
+>
+  {verifying ? "Verifying…" : "Redeem license key"}
+</button>
+
           </div>
         </div>
       )}
 
       {newThoughtId && (
         <p style={{ marginTop: "10px", fontSize: "14px" }}>
-          <Link href={`/thought/${newThoughtId}`}>
-            View your sealed thought →
-          </Link>
+          <Link href={`/thought/${newThoughtId}`}>View your sealed thought →</Link>
         </p>
       )}
+
+      <p style={{ marginBottom: "10px", fontSize: "12px", color: "#777" }}>
+        You control if and when a thought is shared.
+      </p>
 
       <hr style={{ margin: "40px 0" }} />
 
@@ -319,9 +319,7 @@ export default function Home() {
 
       <hr style={{ margin: "40px 0" }} />
 
-      <h2 style={{ fontSize: "20px", fontWeight: 500 }}>
-        Recently Sealed Public Thoughts
-      </h2>
+      <h2 style={{ fontSize: "20px", fontWeight: 500 }}>Recently Sealed Public Thoughts</h2>
 
       <p style={{ fontSize: "12px", color: "#777", marginTop: "6px" }}>
         These thoughts were made public by their creators.
@@ -330,10 +328,7 @@ export default function Home() {
       <ul style={{ marginTop: "15px", listStyle: "none", padding: 0 }}>
         {thoughts.map((t) => (
           <li key={t.id} style={{ marginBottom: "20px" }}>
-            <Link
-              href={`/thought/${t.id}`}
-              style={{ textDecoration: "none", color: "black" }}
-            >
+            <Link href={`/thought/${t.id}`} style={{ textDecoration: "none", color: "black" }}>
               <div
                 style={{
                   fontWeight: 500,
@@ -346,23 +341,14 @@ export default function Home() {
               >
                 {t.content}
               </div>
-              <small style={{ color: "#777" }}>
-                {new Date(t.created_at).toLocaleString()}
-              </small>
+              <small style={{ color: "#777" }}>{new Date(t.created_at).toLocaleString()}</small>
             </Link>
           </li>
         ))}
       </ul>
 
-      <p
-        style={{
-          marginTop: "60px",
-          fontSize: "12px",
-          color: "#999",
-          textAlign: "center",
-        }}
-      >
-        Thought Seal — immutable declarations / predictions / commitments
+      <p style={{ marginTop: "60px", fontSize: "12px", color: "#999", textAlign: "center" }}>
+        Proof of Thought — immutable declarations / predictions / commitments
       </p>
     </main>
   );
