@@ -46,7 +46,7 @@ export default function ThoughtPage() {
 <p style={{ marginTop: "12px", fontSize: "16px" }}>
   This is a sealed declaration. It is private by default,
   <br />
-  and you control if and when it is made public.
+  and the creator controls if and when it is made public.
   <br />
   The content, timestamp, and hash below are permanent.
 </p>
