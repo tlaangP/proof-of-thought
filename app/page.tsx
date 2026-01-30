@@ -22,10 +22,10 @@ export default function Home() {
   const [verifying, setVerifying] = useState(false);
 
   useEffect(() => {
-    let id = localStorage.getItem("pot_client_id");
+    let id = localStorage.getItem("thought_seal_client_id");
     if (!id) {
       id = crypto.randomUUID();
-      localStorage.setItem("pot_client_id", id);
+      localStorage.setItem("thought_seal_client_id", id);
     }
     setClientId(id);
 
@@ -115,8 +115,7 @@ export default function Home() {
         padding: "60px 40px",
         maxWidth: "640px",
         margin: "0 auto",
-        fontFamily:
-          "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen",
+        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen",
       }}
     >
       <h1 style={{ fontSize: "32px", fontWeight: 600 }}>Thought Seal</h1>
@@ -188,6 +187,172 @@ export default function Home() {
       </button>
 
       <p style={{ marginTop: "20px", color: "#555" }}>{status}</p>
+
+      {status.includes("Free limit") && !isUnlocked && (
+        <div
+          style={{
+            marginTop: "20px",
+            padding: "16px",
+            border: "1px solid #ddd",
+            borderRadius: "8px",
+            background: "#fafafa",
+          }}
+        >
+          <p style={{ marginBottom: "10px", fontSize: "14px" }}>
+            You’ve reached the free limit.
+            <br />
+            Unlock unlimited thoughts and public sharing.
+          </p>
+
+          <button
+            onClick={() => {
+              window.location.href = "https://ppcreators.gumroad.com/l/dhxtwg";
+            }}
+            style={{
+              padding: "10px 18px",
+              backgroundColor: "black",
+              color: "white",
+              borderRadius: "6px",
+              cursor: "pointer",
+              fontWeight: 500,
+            }}
+          >
+            Unlock lifetime access – $7
+          </button>
+
+          <div style={{ marginTop: "15px" }}>
+            <p style={{ fontSize: "13px", color: "#555", marginBottom: "6px" }}>
+              Already purchased? Redeem your license key:
+            </p>
+
+            <input
+              type="text"
+              value={licenseKey}
+              onChange={(e) => setLicenseKey(e.target.value)}
+              placeholder="Enter your license key"
+              style={{
+                width: "100%",
+                padding: "10px",
+                borderRadius: "6px",
+                border: "1px solid #ccc",
+                marginBottom: "8px",
+                fontSize: "14px",
+              }}
+            />
+
+            <button
+              onClick={async () => {
+                if (!licenseKey.trim()) {
+                  setStatus("Please enter a license key.");
+                  return;
+                }
+                setVerifying(true);
+                setStatus("Verifying license key…");
+
+                try {
+                  const res = await fetch("/api/verify-license", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ licenseKey }),
+                  });
+
+                  const data = await res.json();
+
+                  if (res.ok && data.valid) {
+                    setIsUnlocked(true);
+                    localStorage.setItem("thought_seal_unlocked", "true");
+                    setStatus("License valid! Unlimited thoughts unlocked.");
+                  } else {
+                    setStatus("Invalid license key. Please try again.");
+                  }
+                } catch (err) {
+                  setStatus("Error verifying license key. Try again later.");
+                } finally {
+                  setVerifying(false);
+                }
+              }}
+              style={{
+                padding: "10px 18px",
+                backgroundColor: "#333",
+                color: "white",
+                borderRadius: "6px",
+                cursor: "pointer",
+                fontSize: "14px",
+              }}
+            >
+              {verifying ? "Verifying…" : "Redeem license key"}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {newThoughtId && (
+        <p style={{ marginTop: "10px", fontSize: "14px" }}>
+          <Link href={`/thought/${newThoughtId}`}>
+            View your sealed thought →
+          </Link>
+        </p>
+      )}
+
+      <hr style={{ margin: "40px 0" }} />
+
+      {myThoughts.length > 0 && (
+        <div style={{ marginTop: "30px" }}>
+          <Link href="/my-thoughts">
+            <button
+              style={{
+                padding: "12px 24px",
+                backgroundColor: "#111",
+                color: "white",
+                borderRadius: "6px",
+                cursor: "pointer",
+                fontWeight: 500,
+              }}
+            >
+              View My Sealed Thoughts
+            </button>
+          </Link>
+        </div>
+      )}
+
+      <hr style={{ margin: "40px 0" }} />
+
+      <h2 style={{ fontSize: "20px", fontWeight: 500 }}>
+        Recently Sealed Public Thoughts
+      </h2>
+
+      <p style={{ fontSize: "12px", color: "#777", marginTop: "6px" }}>
+        These thoughts were made public by their creators.
+      </p>
+
+      <ul style={{ marginTop: "15px", listStyle: "none", padding: 0 }}>
+        {thoughts.map((t) => (
+          <li key={t.id} style={{ marginBottom: "20px" }}>
+            <Link
+              href={`/thought/${t.id}`}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <div
+                style={{
+                  fontWeight: 500,
+                  color: "#333",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  maxWidth: "100%",
+                }}
+              >
+                {t.content}
+              </div>
+              <small style={{ color: "#777" }}>
+                {new Date(t.created_at).toLocaleString()}
+              </small>
+            </Link>
+          </li>
+        ))}
+      </ul>
 
       <p
         style={{
