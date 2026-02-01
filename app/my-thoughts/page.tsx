@@ -44,7 +44,7 @@ export default function MyThoughtsPage() {
 
       {myThoughts.length === 0 && (
         <p style={{ marginTop: "20px", color: "#555" }}>
-          You haven’t sealed any thoughts yet.
+          Retriving thoughts...
         </p>
       )}
 
