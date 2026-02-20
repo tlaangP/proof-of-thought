@@ -113,11 +113,14 @@ export default function Home() {
   return (
     <main
       style={{
-        padding: "60px 40px",
-        maxWidth: "640px",
-        margin: "0 auto",
-        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen",
-      }}
+  padding: "60px 40px",
+  maxWidth: "640px",
+  margin: "0 auto",
+  fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen",
+  backgroundColor: "#0D1B2A",
+  color: "#FFFFFF",
+  minHeight: "100vh",
+}}
     >
       <h1 style={{ fontSize: "32px", fontWeight: 600 }}>Thought Seal</h1>
 
@@ -127,7 +130,7 @@ export default function Home() {
         Seal it permanently.
       </p>
 
-      <p style={{ marginTop: "10px", color: "#555", fontSize: "14px" }}>
+      <p style={{ marginTop: "10px", color: "#B0BEC5", fontSize: "14px" }}>
         Your thought is cryptographically sealed.
         <br />
         It is private by default.
@@ -141,15 +144,17 @@ export default function Home() {
         rows={6}
         maxLength={800}
         style={{
-          width: "100%",
-          marginTop: "10px",
-          padding: "10px",
-          border: "1px solid #ccc",
-          borderRadius: "6px",
-        }}
+  width: "100%",
+  marginTop: "10px",
+  padding: "12px",
+  border: "1px solid #243447",
+  borderRadius: "6px",
+  backgroundColor: "#1B263B",
+  color: "#FFFFFF",
+}}
       />
 
-      <p style={{ fontSize: "12px", color: "#777", marginTop: "4px" }}>{thought.length}/800 characters</p>
+      <p style={{ fontSize: "12px", color: "#B0BEC5", marginTop: "4px" }}>{thought.length}/800 characters</p>
 
       {isUnlocked && (
         <label
@@ -181,16 +186,16 @@ export default function Home() {
         Seal Permanently
       </button>
 
-      <p style={{ marginTop: "20px", color: "#555" }}>{status}</p>
+      <p style={{ marginTop: "20px", color: "#B0BEC5" }}>{status}</p>
 
       {status.includes("Free limit") && !isUnlocked && (
         <div
           style={{
             marginTop: "20px",
             padding: "16px",
-            border: "1px solid #ddd",
+            border: "1px solid #243447",
             borderRadius: "8px",
-            background: "#fafafa",
+            background: "#1B263B",
           }}
         >
           <p style={{ marginBottom: "10px", fontSize: "14px" }}>
@@ -205,8 +210,10 @@ export default function Home() {
             }}
             style={{
               padding: "10px 18px",
-              backgroundColor: "black",
-              color: "white",
+              backgroundColor: "#F5C518",
+              color: "#000",
+              fontWeight: 600,
+              border: "none",
               borderRadius: "6px",
               cursor: "pointer",
               fontWeight: 500,
@@ -217,7 +224,7 @@ export default function Home() {
 
           {/* ===== Redeem License Key UI ===== */}
           <div style={{ marginTop: "15px" }}>
-            <p style={{ fontSize: "13px", color: "#555", marginBottom: "6px" }}>
+            <p style={{ fontSize: "13px", color: "#B0BEC5", marginBottom: "6px" }}>
               Already purchased? Redeem your license key:
             </p>
 
@@ -292,7 +299,7 @@ export default function Home() {
         </p>
       )}
 
-      <p style={{ marginBottom: "10px", fontSize: "12px", color: "#777" }}>
+      <p style={{ marginBottom: "10px", fontSize: "12px", color: "#B0BEC5" }}>
         You control if and when a thought is shared.
       </p>
 
@@ -304,8 +311,10 @@ export default function Home() {
             <button
               style={{
                 padding: "12px 24px",
-                backgroundColor: "#111",
-                color: "white",
+                backgroundColor: "#F5C518",
+                color: "#000",
+                fontWeight: 600,
+                border: "none",
                 borderRadius: "6px",
                 cursor: "pointer",
                 fontWeight: 500,
@@ -321,7 +330,7 @@ export default function Home() {
 
       <h2 style={{ fontSize: "20px", fontWeight: 500 }}>Recently Sealed Public Thoughts</h2>
 
-      <p style={{ fontSize: "12px", color: "#777", marginTop: "6px" }}>
+      <p style={{ fontSize: "12px", color: "#B0BEC5", marginTop: "6px" }}>
         These thoughts were made public by their creators.
       </p>
 
@@ -341,13 +350,13 @@ export default function Home() {
               >
                 {t.content}
               </div>
-              <small style={{ color: "#777" }}>{new Date(t.created_at).toLocaleString()}</small>
+              <small style={{ color: "#B0BEC5" }}>{new Date(t.created_at).toLocaleString()}</small>
             </Link>
           </li>
         ))}
       </ul>
 
-      <p style={{ marginTop: "60px", fontSize: "12px", color: "#999", textAlign: "center" }}>
+      <p style={{ marginTop: "60px", fontSize: "12px", color: "#B0BEC5", textAlign: "center" }}>
         Thought Seal — immutable declarations / predictions / commitments
       </p>
     </main>
