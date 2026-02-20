@@ -39,11 +39,18 @@ export default function MyThoughtsPage() {
   }, [clientId]);
 
   return (
-    <main style={{ padding: "60px 40px", maxWidth: "640px", margin: "0 auto" }}>
+    <main
+  style={{
+    padding: "60px 40px",
+    maxWidth: "640px",
+    margin: "0 auto",
+    color: "#FFFFFF",
+  }}
+>
       <h1 style={{ fontSize: "32px", fontWeight: 600 }}>My Sealed Thoughts</h1>
 
       {myThoughts.length === 0 && (
-        <p style={{ marginTop: "20px", color: "#555" }}>
+        <p style={{ marginTop: "20px", color: "#B0BEC5" }}>
           Retriving thoughts...
         </p>
       )}
@@ -51,7 +58,7 @@ export default function MyThoughtsPage() {
       <ul style={{ marginTop: "20px", listStyle: "none", padding: 0 }}>
         {myThoughts.map((t) => (
           <li key={t.id} style={{ marginBottom: "20px" }}>
-            <Link href={`/thought/${t.id}`} style={{ textDecoration: "none", color: "black" }}>
+            <Link href={`/thought/${t.id}`} style={{ textDecoration: "none", color: "#FFFFFF" }}>
               <div style={{ fontWeight: 500, marginBottom: "4px" }}>{t.content}</div>
               <small style={{ color: "#777" }}>
                 {new Date(t.created_at).toLocaleString()}
