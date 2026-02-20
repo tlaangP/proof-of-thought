@@ -218,7 +218,6 @@ export default function Home() {
               border: "none",
               borderRadius: "6px",
               cursor: "pointer",
-              fontWeight: 500,
             }}
           >
             Unlock lifetime access – $7
@@ -319,7 +318,6 @@ export default function Home() {
                 border: "none",
                 borderRadius: "6px",
                 cursor: "pointer",
-                fontWeight: 500,
               }}
             >
               View My Sealed Thoughts
