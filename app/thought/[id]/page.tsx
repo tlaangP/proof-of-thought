@@ -40,7 +40,14 @@ export default function ThoughtPage() {
   }
 
   return (
-    <main style={{ padding: "40px", maxWidth: "600px", margin: "0 auto" }}>
+    <main
+  style={{
+    padding: "40px",
+    maxWidth: "600px",
+    margin: "0 auto",
+    color: "#FFFFFF",
+  }}
+>
       <h1>Sealed Thought</h1>
 
 <p style={{ marginTop: "12px", fontSize: "16px" }}>
@@ -57,13 +64,14 @@ export default function ThoughtPage() {
   style={{
     position: "relative",
     marginTop: "20px",
-    padding: "15px",
-    borderRadius: "8px",
-    backgroundColor: "#f5f5f5",
-    border: "1px solid #ddd",
+    padding: "20px",
+    borderRadius: "12px",
+    backgroundColor: "#1E293B", // dark card
+    border: "1px solid #334155",
     fontSize: "16px",
-    lineHeight: "1.5",
+    lineHeight: "1.6",
     whiteSpace: "pre-wrap",
+    color: "#FFFFFF",
   }}
 >
   {/* Sealed badge */}
@@ -72,8 +80,8 @@ export default function ThoughtPage() {
       position: "absolute",
       top: "10px",
       right: "10px",
-      backgroundColor: "#222",
-      color: "white",
+      backgroundColor: "#FACC15",
+      color: "#000000",
       fontSize: "12px",
       padding: "2px 6px",
       borderRadius: "4px",
@@ -88,7 +96,7 @@ export default function ThoughtPage() {
 
 
 
-      <p style={{ marginTop: "20px", color: "#555" }}>
+      <p style={{ marginTop: "20px", color: "#94A3B8" }}>
         Hash:
         <br />
         <small>{thought.hash}</small>
