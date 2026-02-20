@@ -122,7 +122,7 @@ export default function Home() {
   minHeight: "100vh",
 }}
     >
-      <h1 style={{ fontSize: "32px", fontWeight: 600 }}>Thought Seal</h1>
+      <h1 style={{ fontSize: "32px", fontWeight: 600 }}>THOUGHT SEAL</h1>
 
       <p style={{ marginTop: "12px", fontSize: "16px" }}>
         Make a declaration / prediction / commitment.
