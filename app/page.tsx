@@ -164,7 +164,7 @@ export default function Home() {
             gap: "8px",
             marginTop: "15px",
             fontSize: "14px",
-            color: "#333",
+            color: "#FFFFFF",
           }}
         >
           <input type="checkbox" checked={makePublic} onChange={(e) => setMakePublic(e.target.checked)} />
@@ -177,8 +177,10 @@ export default function Home() {
         style={{
           marginTop: "15px",
           padding: "12px 24px",
-          backgroundColor: "black",
-          color: "white",
+          backgroundColor: "#F5C518",
+          color: "#000",
+          fontWeight: 600,
+          border: "none",
           borderRadius: "6px",
           cursor: "pointer",
         }}
@@ -337,11 +339,11 @@ export default function Home() {
       <ul style={{ marginTop: "15px", listStyle: "none", padding: 0 }}>
         {thoughts.map((t) => (
           <li key={t.id} style={{ marginBottom: "20px" }}>
-            <Link href={`/thought/${t.id}`} style={{ textDecoration: "none", color: "black" }}>
+            <Link href={`/thought/${t.id}`} style={{ textDecoration: "none", color: "#FFFFFF" }}>
               <div
                 style={{
                   fontWeight: 500,
-                  color: "#333",
+                  color: "#FFFFFF",
                   whiteSpace: "nowrap",
                   overflow: "hidden",
                   textOverflow: "ellipsis",
